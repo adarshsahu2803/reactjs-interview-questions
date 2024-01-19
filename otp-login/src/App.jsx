@@ -43,7 +43,7 @@ function App() {
             </button>
           </form>
           :
-          <EnterOTP number={phoneNumber} length={4} />
+          <EnterOTP number={phoneNumber} otpLength={4} />
       }
     </div>
   );
