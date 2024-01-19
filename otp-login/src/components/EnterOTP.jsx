@@ -8,7 +8,17 @@ function EnterOTP({ number = '', otpLength = 3 }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (otpInput.length == otpLength) {
+
+    let concatenatedOtp = '';
+
+    for (var i = 0; i < otpLength; i++) {
+      concatenatedOtp += refsArray[i].current.value;
+    }
+
+    // Update the state once after the loop
+    setOtpInput(concatenatedOtp);
+
+    if (concatenatedOtp.length === otpLength) {
       alert("Login successful.")
     }
   }
@@ -16,12 +26,20 @@ function EnterOTP({ number = '', otpLength = 3 }) {
   const handleInputChange = (index, value) => {
     console.log(index, value)
 
+    // Move focus to last input field
+    if (value.length == 0) {
+      if (index != 0) {
+        refsArray[index - 1].current.focus();
+      }
+    }
+
     // Move focus to the next input field
-    if(index < otpLength-1) {
+    if (index < otpLength - 1 && value.length > 0) {
+      setOtpInput(otpInput + value);
       refsArray[index + 1].current.focus();
     }
 
-    
+    setOtpInput(value);
   }
 
 
@@ -37,7 +55,7 @@ function EnterOTP({ number = '', otpLength = 3 }) {
               type='text'
               ref={ref}
               className='otp-input'
-              onChange={(e) => 
+              onChange={(e) =>
                 handleInputChange(index, e.target.value)}
               maxLength={1}
             />
