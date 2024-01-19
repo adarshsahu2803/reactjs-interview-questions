@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css'
+import EnterOTP from './components/EnterOTP'
 
 function App() {
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -12,7 +13,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     // handle phone number validation
     if (phoneNumber.length >= 10) {
       setDisplayOTP(true);
@@ -22,24 +23,28 @@ function App() {
       return;
     }
 
-    alert("Form submission successful.")
+    // alert("Form submission successful.")
   }
 
   return (
     <div className='heading'>
       Log in or sign up to continue
-      { }
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          placeholder='Enter phone number'
-          value={phoneNumber}
-          onChange={handleInputChange}
-        />
-        <button type='submit'>
-          Submit
-        </button>
-      </form>
+      {
+        !displayOTP ?
+          <form onSubmit={handleSubmit}>
+            <input
+              type='text'
+              placeholder='Enter phone number'
+              value={phoneNumber}
+              onChange={handleInputChange}
+            />
+            <button type='submit'>
+              Submit
+            </button>
+          </form>
+          :
+          <EnterOTP number={phoneNumber} length={4} />
+      }
     </div>
   );
 }

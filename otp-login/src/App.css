@@ -3,4 +3,21 @@
   font-size: x-large;
   text-align: center;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.otp-input {
+  height: 40px;
+  width: 40px;
+  margin: 10px;
+  margin-top: -10px;
+  padding: 5px;
+  text-align: center;
+}
+
+.enter-otp {
+  /* display: flex;
+  flex-direction: column; */
 }
