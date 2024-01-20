@@ -1,12 +1,14 @@
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useCallback, useState, useRef } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
   const [password, setPassword] = useState('')
   const [passLength, setPassLength] = useState(6)
   const [hasNumber, setHasNumber] = useState(false)
   const [hasChar, setHasChar] = useState(false)
+
+  //useRef hook
+  const passwordRef = useRef(null)
 
   const passwordGenerator = useCallback(() => {
       let pass = ''
@@ -28,6 +30,11 @@ function App() {
       passwordGenerator()
     }, [passLength, hasNumber, hasChar, passwordGenerator])
     
+    const copyPasswordToClipboard = useCallback(() => {
+      passwordRef.current?.select()
+      passwordRef.current?.setSelectionRange(0, 20)
+      window.navigator.clipboard.writeText(password)
+    }, [password])
 
   return (
     <div className='passGen bg-blue text-white'>
@@ -36,9 +43,11 @@ function App() {
         <input
           type='text'
           value={password}
+          placeholder='Password'
           readOnly
+          ref={passwordRef}
         />
-        <button>copy</button>
+        <button onClick={copyPasswordToClipboard}>copy</button>
       </div>
       <div className='range-check'>
         <label>
@@ -54,12 +63,20 @@ function App() {
         <label>
           <input
             type='checkbox'
+            defaultChecked={hasNumber}
+            onClick={() => {
+              setHasNumber((prev) => !prev)
+            }}
           />
           Numbers
         </label>
         <label>
           <input
             type='checkbox'
+            defaultChecked={hasChar}
+            onClick={() => {
+              setHasChar((prev) => !prev)
+            }}
           />
           Characters
         </label>
