@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import './App.css'
 
 function App() {
@@ -8,13 +8,34 @@ function App() {
   const [hasNumber, setHasNumber] = useState(false)
   const [hasChar, setHasChar] = useState(false)
 
+  const passwordGenerator = useCallback(() => {
+      let pass = ''
+      let str = 'abcdefghijklmnopqrstuvwxyxABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+      if (hasNumber) str += '0123456789'
+      if (hasChar) str += '!@#$%^&*()_+-=~'
+
+      for (let i = 0; i < passLength; i++) {
+        let c = Math.floor(str.length * Math.random() + 1) 
+        pass += str.charAt(c)
+      }
+
+      setPassword(pass)
+
+    }, [passLength, hasNumber, hasChar, setPassword])
+
+    useEffect(() => {
+      passwordGenerator()
+    }, [passLength, hasNumber, hasChar, passwordGenerator])
+    
+
   return (
     <div className='passGen bg-blue text-white'>
       <h1 className='passGen text-4xl text-cent'>Password Generator</h1>
       <div>
         <input
           type='text'
-          value={"a;dkfjadhjhf3sdf443"}
+          value={password}
           readOnly
         />
         <button>copy</button>
@@ -26,8 +47,9 @@ function App() {
             min={6}
             max={100}
             defaultValue={10}
+            onChange={(e) => {setPassLength(e.target.value)}}
           />
-          Length: 10
+          Length: {passLength}
         </label>
         <label>
           <input
