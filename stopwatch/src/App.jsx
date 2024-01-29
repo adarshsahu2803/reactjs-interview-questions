@@ -5,6 +5,9 @@ function App() {
   const [time, setTime] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
   let timer = useRef();
+  const [sec, setSec] = useState(0)
+  const [min, setMin] = useState(0)
+  const [hour, setHour] = useState(0)
 
   const updateTime = () => {
     timer.current = setInterval(() => {
@@ -21,6 +24,18 @@ function App() {
     return () => clearInterval(timer.current)
   }, [isRunning])
 
+  useEffect(() => {
+    const formatTime = () => {
+      hour = time / 60 / 60
+      min = time.current / 60 % 60
+      sec = time.current % 60
+    }
+     
+    return (() => {
+
+    })
+  })
+
   const startStopwatch = () => {
     setIsRunning(true)
   }
@@ -36,14 +51,17 @@ function App() {
 
   return (
     <div className='text-2xl'>
-      <h1>{time}</h1>
+      <h1>{Math.floor (time / 60 / 60)} : {Math.floor (time / 60 % 60)} : {time % 60}</h1>
       <div>
         <button
-          className='m-5 p-2 bg-blue-400 w-40 rounded hover:bg-blue-500'
+          className='m-5 p-2 bg-blue-400 w-40 rounded hover:bg-blue-500 text-white'
           onClick={startStopwatch}>Start</button>
         <button
-          className='m-5 p-2 bg-blue-400 w-40 rounded hover:bg-blue-500'
+          className='m-5 p-2 bg-blue-400 w-40 rounded hover:bg-blue-500 text-white'
           onClick={stopStopwatch}>Pause</button>
+        <button
+          className='m-5 p-2 bg-blue-400 w-40 rounded hover:bg-blue-500 text-white'
+          onClick={resetStopwatch}>Reset</button>
       </div>
     </div>
   )
