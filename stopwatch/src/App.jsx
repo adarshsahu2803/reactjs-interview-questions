@@ -1,17 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState, useRef } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [time, setTime] = useState(0)
+  const [isRunning, setIsRunning] = useState(false)
+  let timer = useRef();
+
+  const updateTime = () => {
+    timer.current = setInterval(() => {
+      setTime(prevTime => prevTime + 1)
+    }, 1000)
+  }
+
+  useEffect(() => {
+    updateTime()
+    return () => clearInterval(timer.current)
+  }, [])
+
+  const startStopwatch = () => {
+    setIsRunning(true)
+  }
+
+  const stopStopwatch = () => {
+    setIsRunning(false)
+  }
+
+  const resetStopwatch = () => {
+    setIsRunning(false)
+    setTime(0)
+  }
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </>
+    <div className="text-white">
+      <h1>{time}</h1>
+      <div className='text-2xl'>
+        <button onClick={() => updateTime}>Start</button>
+      </div>
+    </div>
   )
 }
 
