@@ -13,9 +13,13 @@ function App() {
   }
 
   useEffect(() => {
-    updateTime()
+    if (isRunning) {
+      updateTime()
+    } else {
+      clearInterval(timer.current)
+    }
     return () => clearInterval(timer.current)
-  }, [])
+  }, [isRunning])
 
   const startStopwatch = () => {
     setIsRunning(true)
@@ -31,10 +35,15 @@ function App() {
   }
 
   return (
-    <div className="text-white">
+    <div className='text-2xl'>
       <h1>{time}</h1>
-      <div className='text-2xl'>
-        <button onClick={() => updateTime}>Start</button>
+      <div>
+        <button
+          className='m-5 p-2 bg-blue-400 w-40 rounded hover:bg-blue-500'
+          onClick={startStopwatch}>Start</button>
+        <button
+          className='m-5 p-2 bg-blue-400 w-40 rounded hover:bg-blue-500'
+          onClick={stopStopwatch}>Pause</button>
       </div>
     </div>
   )
