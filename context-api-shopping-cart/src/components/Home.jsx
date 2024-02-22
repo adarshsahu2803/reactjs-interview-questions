@@ -1,10 +1,12 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 function Home() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div className="text-3xl text-center">
+      React Context API
+      <Navbar />
+    </div>
   )
 }
 
