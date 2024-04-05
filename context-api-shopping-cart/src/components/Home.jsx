@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 function Home() {
   const productArray = [...Array(20)].map(() => ({
-    id: faker.datatype.uuid(),
+    // id: faker.datatype.,
     name: faker.commerce.productName(),
     price: faker.commerce.price(),
-    image: faker.random.image(),    
-  }))
+    // image: faker.image.a,    
+  })) 
 
-  const [product] = useState(productArray)
+  // const [product] = useState(productArray)
 
   return (
     <div>
       <div className="text-3xl text-center">React Context API</div>
       <Navbar />
-      {product.map(prod => (
+      {productArray.map(prod => (
         <span>{prod.name}</span>
       ))}
     </div>
