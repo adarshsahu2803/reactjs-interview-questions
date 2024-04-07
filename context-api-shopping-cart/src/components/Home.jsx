@@ -12,12 +12,11 @@ function Home() {
   }))
 
   return (
+    
     <div className='flex flex-wrap text-center'>
       {productArray.map(product => (
-        <div key={product.id} className=''>
-          <img src={product.image} alt={product.name} className='w-32 h-32 m-5' />
-          <div>{product.name}</div>
-          <div>{product.price}</div>
+        <div key={product.id}>
+          <Product id={product.id} img={product.image} name={product.name} price={product.price} />
         </div>
       ))}
     </div >
