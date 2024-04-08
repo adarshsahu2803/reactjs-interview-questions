@@ -6,6 +6,8 @@ import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } 
 import Navbar from './components/Navbar';
 
 function App() {
+  
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>

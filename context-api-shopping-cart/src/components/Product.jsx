@@ -1,17 +1,16 @@
 import React from 'react'
 
-function Product(props) {
+function Product({ id, img, name, price, addToCart }) {
   const handleAddToCart = () => {
-
-
-    addToCart(props.id)
+    
+    addToCart(id)
   }
 
   return (
     <div>
-      <img src={props.img} alt={props.name} className='w-32 h-32 m-6' />
-      <div>{props.name}</div>
-      <div>{props.price}</div>
+      <img src={img} alt={name} className='w-32 h-32 m-6' />
+      <div>{name}</div>
+      <div>{price}</div>
       <button onClick={handleAddToCart} className='bg-black text-white p-2 w-30 h-15'>Add to Cart</button>
     </div >
   )
