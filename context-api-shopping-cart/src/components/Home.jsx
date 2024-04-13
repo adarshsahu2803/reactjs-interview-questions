@@ -1,32 +1,52 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { faker } from '@faker-js/faker'
 import { v4 as uuidv4 } from 'uuid';
 import Product from './Product';
 
 function Home() {
-  const [cartItemIds, setCartItemIds] = useState([])
+  const [products, setProducts] = useState([])
+  const [cartItems, setCartItems] = useState([])
 
-  const productArray = [...Array(20)].map(() => ({
-    id: uuidv4(),
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    image: faker.image.url(),
-  }))
+  useEffect(() => {
+    const savedProducts = localStorage.getItem('products')
+    if (savedProducts) {
+      setProducts(JSON.parse(savedProducts))
+    } else {
+      const newProducts = [...Array(20)].map(() => ({
+        id: uuidv4(),
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.url(),
+      }))
+      setProducts(newProducts)
+      localStorage.setItem('product', JSON.stringify(newProducts))
+    }
+  }, [])
+
 
   const addToCart = (itemId) => {
-    const updatedCartList = [...cartItemIds, itemId]
-    setCartItemIds(updatedCartList)
-    console.log(cartItemIds.map(product => product.name))
+    let item = products.filter(product => {
+      return product.id === itemId
+    })
+    // console.log(item);
+    let updatedList = [...cartItems, item.name]
+    setCartItems(updatedList)
+    console.log(updatedList)
+    // console.log(productArray.filter(product => {
+    //   return product.id === itemId
+    // }));
+
   }
 
   return (
 
     <div className='flex flex-wrap text-center'>
-      {productArray.map(product => (
+      {products.map(product => (
         <div key={product.id}>
           <Product id={product.id} img={product.image} name={product.name} price={product.price} addToCart={addToCart} />
         </div>
       ))}
+      {products.map(product => product.name)}
     </div >
   )
 }
