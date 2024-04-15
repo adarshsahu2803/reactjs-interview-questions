@@ -14,8 +14,8 @@ function App() {
         <Route path='/' element={<Navbar />}>
           <Route index element={<Home />} />
           <Route path='/product' element={<Product />} />
-          <Route path='/cart' element={<Cart />} />
-        </Route>
+          <Route path='/cart' element={<Cart cartItems={cartItems} />} />
+        </Route> adlf
       </>
     )
   )

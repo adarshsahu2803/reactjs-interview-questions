@@ -41,7 +41,7 @@ function Home() {
           <Product id={product.id} img={product.image} name={product.name} price={product.price} addToCart={addToCart} />
         </div>
       ))}
-      {products.map(product => product.name)}
+      {/* {products.map(product => product.name)} */}
     </div >
   )
 }
