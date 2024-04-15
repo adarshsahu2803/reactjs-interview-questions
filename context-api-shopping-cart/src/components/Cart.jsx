@@ -5,13 +5,13 @@ function Cart({ cartItems }) {
   return (
     <>
       <div>Cart</div>
-      <div className='flex flex-wrap text-center'>
+      <div className='flex flex-wrap text-center bg-yellow-200'>
         {cartItems.map(item => {
           <div key={item.id}>
-            <Product id={item.id} img={item.img} name={item.name} price={item.price} />
+            <Product item={item} />
           </div>
         })}
-
+        {console.log(cartItems)}
       </div>
     </>
 
