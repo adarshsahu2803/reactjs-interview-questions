@@ -26,16 +26,11 @@ function Home() {
 
   const addToCart = (itemId) => {
     let item = products.filter(product => {
-      return product.id === itemId
+      return itemId === product.id
     })
-    // console.log(item);
-    let updatedList = [...cartItems, item.name]
-    setCartItems(updatedList)
-    console.log(updatedList)
-    // console.log(productArray.filter(product => {
-    //   return product.id === itemId
-    // }));
-
+    let items = [...cartItems, item]
+    setCartItems(items)
+    console.log(items);
   }
 
   return (
