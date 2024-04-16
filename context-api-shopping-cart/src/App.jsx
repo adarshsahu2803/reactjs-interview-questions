@@ -39,7 +39,7 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path='/' element={<Navbar />}>
+        <Route path='/' element={<Navbar cartItems={cartItems} />}>
           <Route index element={<Home addedItems={addedItems} products={products} />} />
           <Route path='/product' element={<Product />} />
           <Route path='/cart' element={<Cart cartItems={cartItems} />} />
